@@ -37,7 +37,7 @@ def main():
             print('urrl-->', urls)
         else:
             # get path to file from config.py
-            urls = pd.read_csv(config.URL_PATH_INPUT)
+            urls = pd.read_csv(config.URL_PATH_INPUT)                       
     else:
         # debugging case
         print('RUNNING TEST URLS...')
@@ -62,13 +62,26 @@ def main():
 
         if len(data) > 0:
             # valid data to be written
+            # file_name = make_file_name(url)
+
+            # with open('data' + os.sep + file_name + '.' + run_time + '.csv', 'w', encoding='utf-8') as f:
+            #     # write header
+            #     f.write(config.DELIM.join(config.HEADER_COLUMNS)+'\n')
+
+            #     # write data
+            #     for row in data:
+            #         f.write(config.DELIM.join((file_name, url, run_time)) +
+            #                 config.DELIM + config.DELIM.join([str(x or '') for x in row])+'\n')
+
+            # print('DONE:', url, run_time)
             file_name = make_file_name(url)
 
-            with open('data' + os.sep + file_name + '.' + run_time + '.csv', 'w', encoding='utf-8') as f:
-                # write header
-                f.write(config.DELIM.join(config.HEADER_COLUMNS)+'\n')
+            with open('data' + os.sep + 'popular_times_all.csv', 'a', encoding='utf-8') as f:
+                # Write header if the file is empty
+                if os.path.getsize(f.name) == 0:
+                    f.write(config.DELIM.join(config.HEADER_COLUMNS)+'\n')
 
-                # write data
+                # Write data
                 for row in data:
                     f.write(config.DELIM.join((file_name, url, run_time)) +
                             config.DELIM + config.DELIM.join([str(x or '') for x in row])+'\n')
@@ -112,7 +125,7 @@ def make_file_name(u):
 
     # file_name = file_name + '.' + run_time
 
-    return file_name
+    return 'FoodHCM_' + file_name
 
 
 def get_html(u, file_name):
