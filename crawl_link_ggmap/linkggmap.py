@@ -15,7 +15,7 @@ driver = webdriver.Firefox(service=service)
 
 # Open the CSV file containing place names and create a new CSV file for results
 input_csv_filename = 'Food_HCM2.csv'
-output_csv_filename = 'GGMap_HCM2.csv'
+output_csv_filename = 'GGMap_HCM5.csv'
 
 with open(input_csv_filename, 'r', newline='', encoding='utf-8') as input_csvfile, \
         open(output_csv_filename, 'w', newline='', encoding='utf-8') as output_csvfile:
@@ -25,8 +25,11 @@ with open(input_csv_filename, 'r', newline='', encoding='utf-8') as input_csvfil
     
     csv_writer = csv.DictWriter(output_csvfile, fieldnames=fieldnames)
     csv_writer.writeheader()
-    
+    i = 0
     for row in csv_reader:
+        i +=1
+        if(i>1010): 
+            break
         place_name = row['PlaceName']
         print(f"Searching for place: {place_name}")
         
